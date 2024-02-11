@@ -1,5 +1,5 @@
 import { darkTheme, lightTheme } from "../theme/theme";
-import { useStore } from "../../../store/global/Theme";
+import { useStore } from "../../../store/global/Theme.js";
 
 const useTheme = () =>{
     const tema = useStore((state) => state.theme)

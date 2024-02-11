@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 const Perfil = () => {
     return (
@@ -9,11 +9,5 @@ const Perfil = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-    }
-})
 
 export default Perfil;
