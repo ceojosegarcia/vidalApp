@@ -16,10 +16,7 @@ export const MyText = styled.Text`
 export const MyContainer = styled.View`
     background: ${props => props.theme.bgPrimary};
     flex: 1;
-    justify-content: center;
-    align-items: center;
   `;
-
 
 export const MyButton = styled.Pressable`
     background-color: darkblue;

@@ -12,10 +12,10 @@ const Mitad2 = styled.View`
     background-color: orange;
     flex: 1;
 `;
-const ContainerUp = styled.View`
-    background-color: silver;
+const ContainerRow = styled.View`
+    background-color: violet;
     flex: 1;
-    flex-direction:row;
+    flex-direction: row;
 `;
 const ViewDisco = styled.View`
     background-color: silver;
@@ -24,7 +24,7 @@ const ViewDisco = styled.View`
 `;
 const Lateral = styled.View`
     background-color: darkgray;
-    flex: 0.1;
+    flex: 0.2;
     justify-content:center;
 `;
 
@@ -41,15 +41,19 @@ const Radio = () => {
             {theme && (
                 <>
                 <Mitad>
+                    <ContainerRow>
+                    <Lateral></Lateral>
                     <ViewDisco>
-                            <MyText theme={theme}>Bienvenidos a mi Radio</MyText>
-                            <MyText theme={theme} rojo>{theme.bgPrimary}</MyText>
-                            <MyText theme={theme} azul>{theme.bgSecundary}</MyText>
-                            <MyText theme={theme} dorado>{theme.bgContrast}</MyText>
-                            <MyButton theme={theme} onPress={handlePress}>
-                                <MyText theme={theme}>Cambiar tema</MyText>
-                            </MyButton>
-                        </ViewDisco>
+                        <MyText theme={theme}>Bienvenidos a mi Radio</MyText>
+                        <MyText theme={theme} rojo>{theme.bgPrimary}</MyText>
+                        <MyText theme={theme} azul>{theme.bgSecundary}</MyText>
+                        <MyText theme={theme} dorado>{theme.bgContrast}</MyText>
+                        <MyButton theme={theme} onPress={handlePress}>
+                            <MyText theme={theme}>Cambiar tema</MyText>
+                        </MyButton>
+                    </ViewDisco>
+                    <Lateral></Lateral>
+                    </ContainerRow>
                 </Mitad>
                 <Mitad2>
 
