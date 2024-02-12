@@ -22,7 +22,7 @@ const Navigation = () => {
                       if (route.name === 'Feed') {
                         return ( <MaterialIcons name="home-filled" size={24} color="#999999" /> );
                       } else if (route.name === 'Podcasts') {
-                        return ( <MaterialIcons name="podcasts" size={24} color="#999999" /> );
+                        return ( <FontAwesome name="podcast" size={24} color="#999999" /> );
                       } else if (route.name === 'Radio') {
                         return ( <Ionicons name="musical-notes" size={28} color="#999999" /> );
                       } else if (route.name === 'Notificaciones') {
