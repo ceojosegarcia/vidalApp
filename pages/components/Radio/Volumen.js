@@ -3,7 +3,7 @@ import { View, PanResponder } from 'react-native';
 import styled from 'styled-components/native';
 
 const FondoVolumen = styled.View`
-  width: 13px;
+  width: 10px;
   height: 120px;
   background: transparent;
   margin-top: 20px;
@@ -12,12 +12,24 @@ const FondoVolumen = styled.View`
   flex-direction: column;
   border: 3px solid #cccccc;
   background: #494949;
-  border-radius: 8px;
+  border-radius: 5px;
+  overflow:visible;
+`;
+
+const VolumenBarra = styled.View`
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background: #fff;
+  left: 0px;
+  bottom: 1px;
 `;
 
 const VolumenBall = styled.View`
-  width: 8px;
-  height: 8px;
+  width: 14px;
+  height: 14px;
+  border: #fff 1px solid;
+  margin-left: -4px;
   border-radius: 100%;
   background-color: #cccccc;
   margin-top: 6px;
@@ -25,22 +37,32 @@ const VolumenBall = styled.View`
 
 const Volumen = () => {
   const [position, setPosition] = useState(0);
+  const [percentage, setPercentage] = useState(100);
 
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: (_, gestureState) => {
       // Actualiza la posición vertical al mover el dedo
       const newPosition = position + gestureState.dy;
-      
-      // Asegúrate de que la posición no salga del rango
+
+      // rango de VolumenBall
       if (newPosition >= 0 && newPosition <= 106) {
         setPosition(newPosition);
+
+        const newPercentage = 100 - (newPosition / 106) * 100;
+        setPercentage(newPercentage);
+        console.log(`Porcentaje: ${percentage.toFixed(2)}%`)
       }
     },
   });
 
   return (
     <FondoVolumen {...panResponder.panHandlers}>
+      <VolumenBarra
+        style={{
+          height: `${percentage.toFixed(0)}%`,
+        }}
+      />
       <VolumenBall style={{ marginTop: position }} />
     </FondoVolumen>
   );

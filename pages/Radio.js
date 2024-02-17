@@ -1,60 +1,29 @@
 import React from 'react';
 import useTheme from './components/hooks/useTheme';
 import { Image } from 'react-native';
-import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow} from './components/StyledComponents';
+import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, Caratula, Mitad, ViewDisco, Disco,SombraDisco} from './components/StyledComponents';
 import styled from 'styled-components/native';
 import { useWindowDimensions } from 'react-native';
 import ButtomTheme from './components/Radio/ButtomTheme';
 import Volumen from './components/Radio/Volumen';
 
 
-const Mitad = styled.View`
-    flex: 1;
-`;
-const ViewDisco = styled.View`
-    background-color: transparent;
-    flex: 1;
-    flex-direction: column;
-    position: relative;
-    align-items: center;
-`;
-const Disco = styled.View`
-    background: green;
-    position: absolute;
-    width: 80%;
-    aspect-ratio: 1;
-    bottom: 10%;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
-    z-index: 20;
-`;
-const Caratula = styled.View`
-    background: violet;
-    position: absolute;
-    width: 80%;
-    aspect-ratio: 1;
-    bottom: 40%;
-    z-index: 30;
-`;
-const SombraDisco = styled.View`
-    background: rgba(0,0,0, 0.12);
-    position: absolute;
-    width: 84%;
-    aspect-ratio: 1;
-    bottom: 8%;
-    left:9%;
-    border-top-left-radius: 100%;
-    border-top-right-radius: 100%;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
-    z-index: 10;
-`;
-
 const Radio = () => {
     const { theme, toggleTheme } = useTheme();
     const { width, height } = useWindowDimensions();
 
     const margen = Math.ceil(width * 10 / height / 2 ) / 10;
+
+    const margenLaterales = () =>{
+        if(margen < 0.2){
+            return 0.2
+        }else if(margen >0.3){
+            return 0.3
+        }else{
+            return margen;
+        }
+    };
+    const espCaratula = Math.ceil(((width - (margenLaterales() * 2 * width)) * 0.8))
     
     const handlePress = () => {
         toggleTheme();
@@ -79,7 +48,7 @@ const Radio = () => {
                                 style={{ width: '100%', height: '100%', borderRadius: 100 }}
                             />
                         </Disco>
-                        <Caratula>
+                        <Caratula margen={`${espCaratula}px`}>
                             <Image
                                 source={require('../assets/img/Radio/caratula.jpg')}
                                 style={{ width: '100%', height: '100%' }}
@@ -93,8 +62,8 @@ const Radio = () => {
                 </Mitad>
                 <Mitad>
                     <MyText theme={theme}>Bienvenidos a mi Radio</MyText>
-                    <MyText theme={theme} rojo>{`Redondeao %: ${Math.ceil(width*10/height/2)}`}</MyText>
-                    <MyText theme={theme} azul>{`Laterales: ${margen.toFixed(1)}`}</MyText>
+                    <MyText theme={theme} rojo>{`Width Caratula: ${espCaratula}`}</MyText>
+                    <MyText theme={theme} azul>{`Laterales: ${margen}`}</MyText>
                     <MyText theme={theme} dorado>{`Width: ${width} / Height: ${height}`}</MyText>
                     <MyButton theme={theme} onPress={handlePress}>
                         <MyText theme={theme}>Cambiar tema</MyText>
