@@ -26,15 +26,19 @@ export const MyButton = styled.Pressable`
 `;
 
 /* LAYOUT RADIO.JS */
-export const Lateral = styled.View`
+export const Lateral1 = styled.View`
     flex: ${props => (props.margenes > 0.2 ? props.margenes : 0.2)};
+`;
+export const Lateral2 = styled.View`
+    flex: ${props => (props.margenes > 0.2 ? props.margenes : 0.2)};
+    align-items: flex-end;
 `;
 export const FondoDisco1 = styled.View`
     background: ${props => props.theme.bgContrast};
     height: 100%; 
     width: 100%;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
 `;
 export const FondoDisco2 = styled.View`
     background: ${props => props.theme.bgContrast};
@@ -42,6 +46,6 @@ export const FondoDisco2 = styled.View`
     width: 100%;
     aspect-ratio: 1;
     bottom: 0;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
 `;

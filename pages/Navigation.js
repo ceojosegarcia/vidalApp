@@ -31,6 +31,7 @@ const Navigation = () => {
                         return ( <FontAwesome name="user" size={24} color="#999999" /> );
                       }
                     },
+                    headerShown: false,
                     tabBarActiveTintColor: '#2f2f2f',
                     tabBarInactiveTintColor: '#999999',
                   })}

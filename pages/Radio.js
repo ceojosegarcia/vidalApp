@@ -1,9 +1,11 @@
 import React from 'react';
 import useTheme from './components/hooks/useTheme';
 import { Image } from 'react-native';
-import { MyText, MyContainer, MyButton, Lateral, FondoDisco1, FondoDisco2, ContainerRow} from './components/StyledComponents';
+import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow} from './components/StyledComponents';
 import styled from 'styled-components/native';
 import { useWindowDimensions } from 'react-native';
+import ButtomTheme from './components/Radio/ButtomTheme';
+import Volumen from './components/Radio/Volumen';
 
 
 const Mitad = styled.View`
@@ -64,25 +66,29 @@ const Radio = () => {
                 <>
                 <Mitad>
                 <ContainerRow>
-                    <Lateral margenes={margen.toFixed(1)}></Lateral>
+                    <Lateral1 margenes={margen.toFixed(1)}>
+                        <ButtomTheme></ButtomTheme>
+                    </Lateral1>
                     <ViewDisco>
                         <FondoDisco1 theme={theme}></FondoDisco1>
                         <FondoDisco2 theme={theme}></FondoDisco2>
                         <SombraDisco></SombraDisco>
                         <Disco>
                             <Image
-                                source={'../assets/img/Radio/disco.png'}
+                                source={require('../assets/img/Radio/disco.png')}
                                 style={{ width: '100%', height: '100%', borderRadius: 100 }}
                             />
                         </Disco>
                         <Caratula>
                             <Image
-                                source={'../assets/img/Radio/caratula.jpg'}
+                                source={require('../assets/img/Radio/caratula.jpg')}
                                 style={{ width: '100%', height: '100%' }}
                             />
                         </Caratula>
                     </ViewDisco>
-                    <Lateral margenes={margen}></Lateral>
+                    <Lateral2 margenes={margen}>
+                        <Volumen></Volumen>
+                    </Lateral2>
                 </ContainerRow>
                 </Mitad>
                 <Mitad>
