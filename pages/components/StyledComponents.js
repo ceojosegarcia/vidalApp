@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const MyText = styled.Text`
     color: ${props => {
@@ -12,8 +13,11 @@ export const MyText = styled.Text`
             return props.theme.fontNormal
         }
     }};
+    font-family: ${props => (props.font ? props.font : "sans-serif")};
 `;
-export const MyContainer = styled.View`
+export const MyContainer = styled(LinearGradient).attrs(props => ({
+    colors: [props.theme.bgPrimary, props.theme.bgSecundary],
+  }))`
     background: ${props => props.theme.bgPrimary};
     flex: 1;
   `;
@@ -91,4 +95,31 @@ export const SombraDisco = styled.View`
     border-bottom-left-radius: 100%;
     border-bottom-right-radius: 100%;
     z-index: 10;
+`;
+export const ViewDatosAudio = styled.View`
+    background-color: transparent;
+    flex-direction: row;
+    height: 30px;
+    align-items: center;
+`;
+export const ViewTituloAudio = styled.View`
+    background-color: transparent;
+    width: 25%;
+    height: 80%;
+    padding-left: 10px;
+`;
+export const DatoAudio = styled.View`
+    background-color: transparent;
+    width: 75%;
+    height: 80%;
+    position: relative;
+    overflow: hidden;
+`;
+export const ContainBarras = styled.View`
+    background-color: transparent;
+    width: 100%;
+    height: 50px;
+    border-bottom-width: 1px;
+    border-bottom-color: #7a7a7a;
+    border-bottom-style: solid;
 `;

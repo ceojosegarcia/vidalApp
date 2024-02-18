@@ -1,16 +1,21 @@
 import React from 'react';
 import useTheme from './components/hooks/useTheme';
 import { Image } from 'react-native';
-import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, Caratula, Mitad, ViewDisco, Disco,SombraDisco} from './components/StyledComponents';
-import styled from 'styled-components/native';
+import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, ContainBarras} from './components/StyledComponents';
 import { useWindowDimensions } from 'react-native';
 import ButtomTheme from './components/Radio/ButtomTheme';
 import Volumen from './components/Radio/Volumen';
+import { useFonts } from 'expo-font';
 
 
 const Radio = () => {
     const { theme, toggleTheme } = useTheme();
     const { width, height } = useWindowDimensions();
+    const [fontsLoaded] = useFonts({
+        RussoOne : require("../assets/fonts/RussoOne.ttf"),
+        OpenSans: require("../assets/fonts/OpenSans.ttf"),
+        OpenSansBold: require("../assets/fonts/OpenSansBold.ttf")
+    })
 
     const margen = Math.ceil(width * 10 / height / 2 ) / 10;
 
@@ -60,8 +65,44 @@ const Radio = () => {
                     </Lateral2>
                 </ContainerRow>
                 </Mitad>
-                <Mitad>
-                    <MyText theme={theme}>Bienvenidos a mi Radio</MyText>
+                <Mitad style={{ paddingTop: '10px' }}>
+                    <ViewDatosAudio>
+                        <ViewTituloAudio>
+                            <MyText 
+                                theme={theme}
+                                font= {fontsLoaded ? "RussoOne" : "sans-serif"}
+                                dorado    
+                            >Artista:</MyText>
+                        </ViewTituloAudio>
+                        <DatoAudio>
+                            <MyText 
+                                theme={theme}
+                                font= {fontsLoaded ? "OpenSansBold" : "sans-serif"}   
+                            >El Gran Combo de Puerto Rico</MyText>
+                        </DatoAudio>
+                    </ViewDatosAudio>
+                    <ViewDatosAudio>
+                        <ViewTituloAudio>
+                            <MyText 
+                                theme={theme}
+                                font= {fontsLoaded ? "RussoOne" : "sans-serif"}
+                                dorado    
+                            >Tema:</MyText>
+                        </ViewTituloAudio>
+                        <DatoAudio>
+                            <MyText 
+                                theme={theme}
+                                font= {fontsLoaded ? "OpenSans" : "sans-serif"}   
+                                azul
+                            >Timbalero y Trampolin</MyText>
+                        </DatoAudio>
+                    </ViewDatosAudio>
+                    <ContainBarras>
+                        <Image
+                            source={require('../assets/img/Radio/barras.png')}
+                            style={{ width: '100%', height: '100%' }}
+                        />
+                    </ContainBarras>
                     <MyText theme={theme} rojo>{`Width Caratula: ${espCaratula}`}</MyText>
                     <MyText theme={theme} azul>{`Laterales: ${margen}`}</MyText>
                     <MyText theme={theme} dorado>{`Width: ${width} / Height: ${height}`}</MyText>
