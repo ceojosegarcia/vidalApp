@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useTheme from './components/hooks/useTheme';
 import { Image } from 'react-native';
-import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, ContainBarras} from './components/StyledComponents';
+import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, 
+         Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
+         ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, CoverButtom, PlayingButtom,
+         RadioFooter} from './components/StyledComponents';
 import { useWindowDimensions } from 'react-native';
 import ButtomTheme from './components/Radio/ButtomTheme';
 import Volumen from './components/Radio/Volumen';
+import SvgPlay from './components/svg/SvgPlay';
+import SvgCompartir from './components/svg/SvgCompartir';
+import SvgConfig from './components/svg/SvgConfig';
+import SvgCirculos from './components/svg/SvgCirculos';
+import SvgSeparador from './components/svg/SvgSeparador';
 import { useFonts } from 'expo-font';
 
 
@@ -16,6 +24,7 @@ const Radio = () => {
         OpenSans: require("../assets/fonts/OpenSans.ttf"),
         OpenSansBold: require("../assets/fonts/OpenSansBold.ttf")
     })
+    const [isPlaying, setIsPlaying] = useState(false)
 
     const margen = Math.ceil(width * 10 / height / 2 ) / 10;
 
@@ -32,6 +41,10 @@ const Radio = () => {
     
     const handlePress = () => {
         toggleTheme();
+    };
+
+    const cambiaPlaying = () => {
+        setIsPlaying(!isPlaying)
     };
 
     return (
@@ -103,9 +116,33 @@ const Radio = () => {
                             style={{ width: '100%', height: '100%' }}
                         />
                     </ContainBarras>
-                    <MyText theme={theme} rojo>{`Width Caratula: ${espCaratula}`}</MyText>
-                    <MyText theme={theme} azul>{`Laterales: ${margen}`}</MyText>
-                    <MyText theme={theme} dorado>{`Width: ${width} / Height: ${height}`}</MyText>
+                    <ContainerRow style={{ marginBottom: "20px" }}>
+                        <PlayerTime>
+                            <MyText theme={theme}
+                                    font= {fontsLoaded ? "OpenSans" : "sans-serif"}
+                                    size={"32px"} 
+                            >01:20</MyText>
+                            <MyText theme={theme}
+                                    font= {fontsLoaded ? "OpenSans" : "sans-serif"}
+                                    size={"12px"} azul 
+                            >En Linea</MyText>
+                        </PlayerTime>
+                        <PlayerButtom>
+                            <SvgPlay isPlaying={isPlaying} />
+                            <PlayingButtom onPress={cambiaPlaying}>
+                                 <CoverButtom/>
+                            </PlayingButtom>
+                        </PlayerButtom>
+                        <PlayerConfig>
+                            <SvgCompartir></SvgCompartir>
+                            <SvgConfig></SvgConfig>
+                        </PlayerConfig>
+                    </ContainerRow>
+                    <RadioFooter>
+                        <SvgSeparador theme={theme}></SvgSeparador>
+                        <SvgCirculos theme={theme}></SvgCirculos>
+                        <SvgSeparador theme={theme}></SvgSeparador>
+                    </RadioFooter>
                     <MyButton theme={theme} onPress={handlePress}>
                         <MyText theme={theme}>Cambiar tema</MyText>
                     </MyButton>

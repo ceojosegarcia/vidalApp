@@ -1,5 +1,9 @@
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Dimensions } from 'react-native';
+
+const vw = Dimensions.get('window').width;
+const vh = Dimensions.get('window').height;
 
 export const MyText = styled.Text`
     color: ${props => {
@@ -14,6 +18,7 @@ export const MyText = styled.Text`
         }
     }};
     font-family: ${props => (props.font ? props.font : "sans-serif")};
+    font-size: ${props => (props.size ? props.size : "16px")};
 `;
 export const MyContainer = styled(LinearGradient).attrs(props => ({
     colors: [props.theme.bgPrimary, props.theme.bgSecundary],
@@ -122,4 +127,69 @@ export const ContainBarras = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #7a7a7a;
     border-bottom-style: solid;
+    margin-bottom: 30px;
+`;
+export const PlayerTime = styled.View`
+    background-color: transparent;
+    flex:1;
+    height: 100px;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-left: 20px;
+`;
+export const PlayerButtom = styled(LinearGradient).attrs(props => ({
+    colors: ['rgba(255,225,165,1)', 'rgba(251,184,35,1)'],
+  }))`
+    width: 100px; 
+    height: 100px;
+    border-radius: 100%;
+    border-width: 3px;
+    border-color: #ffffff;
+    border-style: solid;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+`;
+export const CoverButtom = styled(LinearGradient).attrs(props => ({
+    colors: ['rgba(255,225,255,.4)', 'transparent'],
+  }))`
+    width: 100px; 
+    height: 100px;
+    border-radius: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 5;
+`;
+export const PlayingButtom = styled.Pressable`
+    background-color: transparent;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+`;
+export const PlayerConfig = styled.View`
+    background-color: transparent;
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100px;
+    padding-right: 10px;
+`;
+
+export const RadioFooter = styled.View`
+    background-color: transparent;
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-top-width: 1px;
+    border-top-color: #7a7a7a;
+    border-top-style: solid;
+    position: relative;
 `;
