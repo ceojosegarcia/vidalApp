@@ -8,12 +8,13 @@ import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDi
 import { useWindowDimensions } from 'react-native';
 import ButtomTheme from './components/Radio/ButtomTheme';
 import Volumen from './components/Radio/Volumen';
-import SvgPlay from './components/svg/SvgPlay';
-import SvgCompartir from './components/svg/SvgCompartir';
-import SvgConfig from './components/svg/SvgConfig';
-import SvgCirculos from './components/svg/SvgCirculos';
-import SvgSeparador from './components/svg/SvgSeparador';
+import PlayImage from './components/Iconos/PlayImage';
+import CompartirImage from './components/Iconos/CompartirImage';
+import ConfigImage from './components/Iconos/ConfigImage'
+import SeparadorImage from './components/Iconos/SeparadorImage';
+import PuntosImage from './components/Iconos/PuntosImage'
 import { useFonts } from 'expo-font';
+
 
 
 const Radio = () => {
@@ -128,20 +129,26 @@ const Radio = () => {
                             >En Linea</MyText>
                         </PlayerTime>
                         <PlayerButtom>
-                            <SvgPlay isPlaying={isPlaying} />
+                            <PlayImage isPlaying={isPlaying} />
                             <PlayingButtom onPress={cambiaPlaying}>
                                  <CoverButtom/>
                             </PlayingButtom>
                         </PlayerButtom>
                         <PlayerConfig>
-                            <SvgCompartir></SvgCompartir>
-                            <SvgConfig></SvgConfig>
+                            <CompartirImage theme={theme}></CompartirImage>
+                            <ConfigImage theme={theme}></ConfigImage>
                         </PlayerConfig>
                     </ContainerRow>
                     <RadioFooter>
-                        <SvgSeparador theme={theme}></SvgSeparador>
-                        <SvgCirculos theme={theme}></SvgCirculos>
-                        <SvgSeparador theme={theme}></SvgSeparador>
+                        <SeparadorImage theme={theme} 
+                            estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '0px'}}
+                        />
+                            <PuntosImage theme={theme}
+                                estilos= {{ width: '20%', height: '20%', position: 'absolute', left: '40%', bottom: '15%'}}
+                            />
+                        <SeparadorImage theme={theme} 
+                            estilos= {{ width: '5%', height: '50%', position: 'absolute', right: '0px'}}
+                        />
                     </RadioFooter>
                     <MyButton theme={theme} onPress={handlePress}>
                         <MyText theme={theme}>Cambiar tema</MyText>

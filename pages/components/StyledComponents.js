@@ -182,12 +182,12 @@ export const PlayerConfig = styled.View`
 export const RadioFooter = styled.View`
     background-color: transparent;
     flex-direction: row;
-    flex: 1;
+    width: 80%;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
-    margin-left: 20px;
-    margin-right: 20px;
+    height: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
     border-top-width: 1px;
     border-top-color: #7a7a7a;
     border-top-style: solid;
