@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, PanResponder } from 'react-native';
+import { PanResponder } from 'react-native';
 import styled from 'styled-components/native';
+import useTheme from '../hooks/useTheme';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const FondoVolumen = styled.View`
   width: 10px;
@@ -10,17 +12,20 @@ const FondoVolumen = styled.View`
   margin-right: 15px;
   position: relative;
   flex-direction: column;
-  border: 3px solid #cccccc;
-  background: #494949;
+  border-width: 3px;
+  border-color: ${props => ((props.theme) ? props.theme.bgContrast : "#cccccc")};
+  border-style: solid;
+  background: ${props => ((props.theme) ? props.theme.bgPrimary : "#494949")};
   border-radius: 5px;
   overflow:visible;
 `;
 
-const VolumenBarra = styled.View`
+const VolumenBarra = styled(LinearGradient).attrs(props => ({
+  colors: [props.theme.bgContrast, props.theme.bgContrast2],
+}))`
   position: absolute;
   width: 4px;
   height: 100%;
-  background: #fff;
   left: 0px;
   bottom: 1px;
 `;
@@ -28,14 +33,17 @@ const VolumenBarra = styled.View`
 const VolumenBall = styled.View`
   width: 14px;
   height: 14px;
-  border: #fff 1px solid;
+  border-width: 1px;
+  border-color: ${props => ((props.theme) ? props.theme.bgContrast : "#fff")};
+  border-style: solid;
   margin-left: -4px;
   border-radius: 100%;
-  background-color: #cccccc;
+  background-color: ${props => ((props.theme) ? props.theme.bgPrimary : "#cccccc")};
   margin-top: 6px;
 `;
 
 const Volumen = () => {
+  const { theme } = useTheme();
   const [position, setPosition] = useState(0);
   const [percentage, setPercentage] = useState(100);
 
@@ -57,13 +65,14 @@ const Volumen = () => {
   });
 
   return (
-    <FondoVolumen {...panResponder.panHandlers}>
+    <FondoVolumen {...panResponder.panHandlers}  theme={theme}>
       <VolumenBarra
+        theme={theme}
         style={{
           height: `${percentage.toFixed(0)}%`,
         }}
       />
-      <VolumenBall style={{ marginTop: position }} />
+      <VolumenBall style={{ marginTop: position }}  theme={theme}/>
     </FondoVolumen>
   );
 };

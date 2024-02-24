@@ -12,17 +12,19 @@ const FondoButtom = styled(LinearGradient).attrs(props => ({
     margin-left: 10px;
     position: relative;
     flex-direction: column;
-    border: 3px solid #cccccc;
+    border-width: 3px;
+    border-color: ${props => ((props.theme) ? props.theme.bgContrast : "#cccccc")};
+    border-style: solid;
     border-radius: 20px;
 `;
 
 const ButtomBall = styled(LinearGradient).attrs(props => ({
   colors: [props.theme.bgContrast2, props.theme.bgContrast],
 }))`
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 100%;
-  margin-top: 6px;
+  margin-top: ${props => ((props.theme.theme && props.theme.theme === "light") ? "16px" : "4px")};
 `;
 
 const ButtomTheme = () => {

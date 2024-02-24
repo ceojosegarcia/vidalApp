@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import useTheme from './components/hooks/useTheme';
-import { Image } from 'react-native';
+import { Image, Pressable } from 'react-native';
 import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, 
          Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
          ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, CoverButtom, PlayingButtom,
@@ -55,7 +55,9 @@ const Radio = () => {
                 <Mitad>
                 <ContainerRow>
                     <Lateral1 margenes={margen.toFixed(1)}>
-                        <ButtomTheme></ButtomTheme>
+                        <Pressable onPress={handlePress}>
+                            <ButtomTheme></ButtomTheme>
+                        </Pressable>
                     </Lateral1>
                     <ViewDisco>
                         <FondoDisco1 theme={theme}></FondoDisco1>
@@ -144,15 +146,12 @@ const Radio = () => {
                             estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '0px'}}
                         />
                             <PuntosImage theme={theme}
-                                estilos= {{ width: '20%', height: '20%', position: 'absolute', left: '40%', bottom: '15%'}}
+                                estilos= {{ width: '25%', height: '20%', position: 'absolute', left: '40%', bottom: '20%'}}
                             />
                         <SeparadorImage theme={theme} 
-                            estilos= {{ width: '5%', height: '50%', position: 'absolute', right: '0px'}}
+                            estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '95%'}}
                         />
                     </RadioFooter>
-                    <MyButton theme={theme} onPress={handlePress}>
-                        <MyText theme={theme}>Cambiar tema</MyText>
-                    </MyButton>
                 </Mitad>
                 </>
             )}

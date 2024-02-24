@@ -63,7 +63,7 @@ export const FondoDisco2 = styled.View`
 `;
 
 export const Caratula = styled.View`
-    background: violet;
+    background: transparent;
     position: absolute;
     width: 80%;
     aspect-ratio: 1;
@@ -79,7 +79,7 @@ export const ViewDisco = styled.View`
     align-items: center;
 `;
 export const Disco = styled.View`
-    background: green;
+    background: transparent;
     position: absolute;
     width: 80%;
     aspect-ratio: 1;
