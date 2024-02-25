@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions } from 'react-native';
+import Animated from 'react-native-reanimated';
 
 const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
@@ -78,15 +79,15 @@ export const ViewDisco = styled.View`
     position: relative;
     align-items: center;
 `;
-export const Disco = styled.View`
-    background: transparent;
-    position: absolute;
-    width: 80%;
-    aspect-ratio: 1;
-    bottom: 10%;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
-    z-index: 20;
+export const Disco = styled(Animated.View)`
+  background: transparent;
+  position: absolute;
+  width: 80%;
+  aspect-ratio: 1;
+  bottom: 10%;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  z-index: 20;
 `;
 export const SombraDisco = styled.View`
     background: rgba(0,0,0, 0.12);

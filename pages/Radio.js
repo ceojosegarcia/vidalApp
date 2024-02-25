@@ -14,8 +14,7 @@ import ConfigImage from './components/Iconos/ConfigImage'
 import SeparadorImage from './components/Iconos/SeparadorImage';
 import PuntosImage from './components/Iconos/PuntosImage'
 import { useFonts } from 'expo-font';
-
-
+import { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 
 const Radio = () => {
     const { theme, toggleTheme } = useTheme();
@@ -29,6 +28,23 @@ const Radio = () => {
     const [altoFooter, setAltoFooter] = useState(80)
 
     const margen = Math.ceil(width * 10 / height / 2 ) / 10;
+    //ANIMACIONES
+    const rotation = useSharedValue(0);
+
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+          transform: [{ rotate: `${rotation.value * 360}deg` }],
+        };
+    });
+
+    useEffect(() => {
+        if (isPlaying) {
+            rotation.value = withSpring(1, { damping: 5, stiffness: 100 });
+            console.log(`Reproduciendo ${rotation.value}`)
+        } else {
+            rotation.value = withSpring(0, { damping: 5, stiffness: 100 });
+        }
+    }, [isPlaying]);
 
     const margenLaterales = () =>{
         if(margen < 0.2){
@@ -66,7 +82,7 @@ const Radio = () => {
         <MyContainer theme={theme}>
             {theme && (
                 <>
-                <Mitad onLayout={handleLayout('view1')}>
+                <Mitad>
                 <ContainerRow>
                     <Lateral1 margenes={margen.toFixed(1)}>
                         <Pressable onPress={handlePress}>
@@ -77,7 +93,7 @@ const Radio = () => {
                         <FondoDisco1 theme={theme}></FondoDisco1>
                         <FondoDisco2 theme={theme}></FondoDisco2>
                         <SombraDisco></SombraDisco>
-                        <Disco>
+                        <Disco style={animatedStyle}>
                             <Image
                                 source={require('../assets/img/Radio/disco.png')}
                                 style={{ width: '100%', height: '100%', borderRadius: 100 }}
@@ -96,7 +112,7 @@ const Radio = () => {
                 </ContainerRow>
                 </Mitad>
                 <Mitad style={{ paddingTop: '10px' }}>
-                    <ViewDatosAudio onLayout={handleLayout('view2')}>
+                    <ViewDatosAudio>
                         <ViewTituloAudio>
                             <MyText 
                                 theme={theme}
@@ -111,7 +127,7 @@ const Radio = () => {
                             >El Gran Combo de Puerto Rico</MyText>
                         </DatoAudio>
                     </ViewDatosAudio>
-                    <ViewDatosAudio onLayout={handleLayout('view3')}>
+                    <ViewDatosAudio>
                         <ViewTituloAudio>
                             <MyText 
                                 theme={theme}
@@ -127,13 +143,13 @@ const Radio = () => {
                             >Timbalero y Trampolin</MyText>
                         </DatoAudio>
                     </ViewDatosAudio>
-                    <ContainBarras onLayout={handleLayout('view4')}>
+                    <ContainBarras>
                         <Image
                             source={require('../assets/img/Radio/barras.png')}
                             style={{ width: '100%', height: '100%' }}
                         />
                     </ContainBarras>
-                    <ContainerRow style={{ marginBottom: "20px" }}  onLayout={handleLayout('view5')}>
+                    <ContainerRow style={{ marginBottom: "20px" }} >
                         <PlayerTime>
                             <MyText theme={theme}
                                     font= {fontsLoaded ? "OpenSans" : "sans-serif"}
