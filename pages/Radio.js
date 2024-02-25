@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import useTheme from './components/hooks/useTheme';
-import { Image, Pressable, View } from 'react-native';
+import { Image, Pressable } from 'react-native';
 import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, 
          Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
          ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, CoverButtom, PlayingButtom,
@@ -26,14 +26,7 @@ const Radio = () => {
         OpenSansBold: require("../assets/fonts/OpenSansBold.ttf")
     })
     const [isPlaying, setIsPlaying] = useState(false)
-    const [heights, setHeights] = useState({
-        view1: 0,
-        view2: 0,
-        view3: 0,
-        view4: 0,
-        view5: 0
-      });
-    const [sumaAltos, setSumaAltos] = useState(0)
+    const [altoFooter, setAltoFooter] = useState(80)
 
     const margen = Math.ceil(width * 10 / height / 2 ) / 10;
 
@@ -46,19 +39,20 @@ const Radio = () => {
             return margen;
         }
     };
-    const espCaratula = Math.ceil(((width - (margenLaterales() * 2 * width)) * 0.8))
+    useEffect(()=>{
+        if(height < 600){
+            setAltoFooter(null)
+            return;
+        }else if( height < 700){
+            setAltoFooter(40)
+            return;
+        }else if( height < 800){
+            setAltoFooter(60)
+            return;
+        }
+    },[height])
 
-    const handleLayout = (viewName) => (event) => {
-        const { height } = event.nativeEvent.layout;
-        setHeights((prevHeights) => ({ ...prevHeights, [viewName]: height }));
-        
-    };
-    
-    useEffect(() => {
-        const sumatoria = heights.view1 + heights.view2 + heights.view3 + heights.view4 + heights.view5
-        setSumaAltos( () => sumatoria);
-        console.log(sumaAltos)
-    }, [heights]);
+    const espCaratula = Math.ceil(((width - (margenLaterales() * 2 * width)) * 0.8))
     
     const handlePress = () => {
         toggleTheme();
@@ -161,22 +155,20 @@ const Radio = () => {
                             <ConfigImage theme={theme}></ConfigImage>
                         </PlayerConfig>
                     </ContainerRow>
-                    <RadioFooter>
-                        <SeparadorImage theme={theme} 
-                            estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '0px'}}
-                        />
-                            <PuntosImage theme={theme}
-                                estilos= {{ width: '40%', height: '20%', position: 'absolute', left: '30%', bottom: '20%'}}
-                            />
-                        <SeparadorImage theme={theme} 
-                            estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '95%'}}
-                        />
-                    </RadioFooter>
-                    <View>
-                        <MyText theme={theme}>
-                            {`Altura Completa: ${height} Suma de Altos ${sumaAltos}`}
-                        </MyText>
-                    </View>
+                    {altoFooter && ( 
+                        <RadioFooter altoFooter= {altoFooter}>
+                            <SeparadorImage theme={theme} 
+                                estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '0px'}}
+                                />
+                                <PuntosImage theme={theme}
+                                    estilos= {{ width: '40%', height: '20%', position: 'absolute', left: '30%', bottom: '20%'}}
+                                    />
+                            <SeparadorImage theme={theme} 
+                                estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '95%'}}
+                                />
+                        </RadioFooter>
+                    )}
+                    
                 </Mitad>
                 </>
             )}
