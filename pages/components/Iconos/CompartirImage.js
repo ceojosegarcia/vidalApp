@@ -5,12 +5,12 @@ const CompartirImage = ({theme}) => {
     return theme.theme === 'light' ? (
         <Image
             source={require('../../../assets/img/Iconos/compartir-light.png')}
-            style={{ width: '30px', height: '30px' }}
+            style={{ width: 30, height: 30, resizeMode: 'contain' }}
         /> 
     ):(
         <Image
             source={require('../../../assets/img/Iconos/compartir-dark.png')}
-            style={{ width: '30px', height: '30px' }}
+            style={{ width: 30, height: 30, resizeMode: 'contain' }}
         />
     );
 };

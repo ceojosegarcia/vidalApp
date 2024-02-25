@@ -185,7 +185,7 @@ export const RadioFooter = styled.View`
     width: 80%;
     justify-content: space-between;
     align-items: center;
-    height: 20%;
+    height: 60;
     margin-left: 10%;
     margin-right: 10%;
     border-top-width: 1px;

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import useTheme from './components/hooks/useTheme';
-import { Image, Pressable } from 'react-native';
+import { Image, Pressable, View } from 'react-native';
 import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, 
          Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
          ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, CoverButtom, PlayingButtom,
@@ -26,6 +26,14 @@ const Radio = () => {
         OpenSansBold: require("../assets/fonts/OpenSansBold.ttf")
     })
     const [isPlaying, setIsPlaying] = useState(false)
+    const [heights, setHeights] = useState({
+        view1: 0,
+        view2: 0,
+        view3: 0,
+        view4: 0,
+        view5: 0
+      });
+    const [sumaAltos, setSumaAltos] = useState(0)
 
     const margen = Math.ceil(width * 10 / height / 2 ) / 10;
 
@@ -39,6 +47,18 @@ const Radio = () => {
         }
     };
     const espCaratula = Math.ceil(((width - (margenLaterales() * 2 * width)) * 0.8))
+
+    const handleLayout = (viewName) => (event) => {
+        const { height } = event.nativeEvent.layout;
+        setHeights((prevHeights) => ({ ...prevHeights, [viewName]: height }));
+        
+    };
+    
+    useEffect(() => {
+        const sumatoria = heights.view1 + heights.view2 + heights.view3 + heights.view4 + heights.view5
+        setSumaAltos( () => sumatoria);
+        console.log(sumaAltos)
+    }, [heights]);
     
     const handlePress = () => {
         toggleTheme();
@@ -52,7 +72,7 @@ const Radio = () => {
         <MyContainer theme={theme}>
             {theme && (
                 <>
-                <Mitad>
+                <Mitad onLayout={handleLayout('view1')}>
                 <ContainerRow>
                     <Lateral1 margenes={margen.toFixed(1)}>
                         <Pressable onPress={handlePress}>
@@ -82,7 +102,7 @@ const Radio = () => {
                 </ContainerRow>
                 </Mitad>
                 <Mitad style={{ paddingTop: '10px' }}>
-                    <ViewDatosAudio>
+                    <ViewDatosAudio onLayout={handleLayout('view2')}>
                         <ViewTituloAudio>
                             <MyText 
                                 theme={theme}
@@ -97,7 +117,7 @@ const Radio = () => {
                             >El Gran Combo de Puerto Rico</MyText>
                         </DatoAudio>
                     </ViewDatosAudio>
-                    <ViewDatosAudio>
+                    <ViewDatosAudio onLayout={handleLayout('view3')}>
                         <ViewTituloAudio>
                             <MyText 
                                 theme={theme}
@@ -113,13 +133,13 @@ const Radio = () => {
                             >Timbalero y Trampolin</MyText>
                         </DatoAudio>
                     </ViewDatosAudio>
-                    <ContainBarras>
+                    <ContainBarras onLayout={handleLayout('view4')}>
                         <Image
                             source={require('../assets/img/Radio/barras.png')}
                             style={{ width: '100%', height: '100%' }}
                         />
                     </ContainBarras>
-                    <ContainerRow style={{ marginBottom: "20px" }}>
+                    <ContainerRow style={{ marginBottom: "20px" }}  onLayout={handleLayout('view5')}>
                         <PlayerTime>
                             <MyText theme={theme}
                                     font= {fontsLoaded ? "OpenSans" : "sans-serif"}
@@ -146,12 +166,17 @@ const Radio = () => {
                             estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '0px'}}
                         />
                             <PuntosImage theme={theme}
-                                estilos= {{ width: '25%', height: '20%', position: 'absolute', left: '40%', bottom: '20%'}}
+                                estilos= {{ width: '40%', height: '20%', position: 'absolute', left: '30%', bottom: '20%'}}
                             />
                         <SeparadorImage theme={theme} 
                             estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '95%'}}
                         />
                     </RadioFooter>
+                    <View>
+                        <MyText theme={theme}>
+                            {`Altura Completa: ${height} Suma de Altos ${sumaAltos}`}
+                        </MyText>
+                    </View>
                 </Mitad>
                 </>
             )}
