@@ -12,6 +12,7 @@ const useTheme = () =>{
         bgSecundary: (tema === "dark") ? darkTheme.backgroundColor.secundary : lightTheme.backgroundColor.secundary,
         bgContrast: (tema === "dark") ? darkTheme.backgroundColor.contrast : lightTheme.backgroundColor.contrast,
         bgContrast2: (tema === "dark") ? darkTheme.backgroundColor.contrast2 : lightTheme.backgroundColor.contrast2,
+        bgContrast3: (tema === "dark") ? darkTheme.backgroundColor.contrast3 : lightTheme.backgroundColor.contrast3,
         fontNormal: (tema === "dark") ? darkTheme.fontColor.normal : lightTheme.fontColor.normal,
         fontDorado: (tema === "dark") ? darkTheme.fontColor.dorado : lightTheme.fontColor.dorado,
         fontRojo: (tema === "dark") ? darkTheme.fontColor.rojo : lightTheme.fontColor.rojo,

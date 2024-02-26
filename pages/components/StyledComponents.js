@@ -53,8 +53,9 @@ export const FondoDisco1 = styled.View`
     border-bottom-left-radius: 100%;
     border-bottom-right-radius: 100%;
 `;
-export const FondoDisco2 = styled.View`
-    background: ${props => props.theme.bgContrast};
+export const FondoDisco2 = styled(LinearGradient).attrs(props => ({
+    colors: [props.theme.bgContrast, props.theme.bgContrast3],
+  }))`
     position: absolute;
     width: 100%;
     aspect-ratio: 1;

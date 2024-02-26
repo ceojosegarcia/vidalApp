@@ -1,20 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import useTheme from './components/hooks/useTheme';
-import { Image, Pressable } from 'react-native';
-import { MyText, MyContainer, MyButton, Lateral1, Lateral2, FondoDisco1, FondoDisco2, ContainerRow, 
-         Caratula, Mitad, ViewDisco, Disco,SombraDisco, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
-         ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, CoverButtom, PlayingButtom,
-         RadioFooter} from './components/StyledComponents';
+import { Image } from 'react-native';
+import { MyText, MyContainer, ContainerRow, 
+         Mitad, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
+         ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, 
+         CoverButtom, PlayingButtom,} from './components/StyledComponents';
 import { useWindowDimensions } from 'react-native';
-import ButtomTheme from './components/Radio/ButtomTheme';
-import Volumen from './components/Radio/Volumen';
 import PlayImage from './components/Iconos/PlayImage';
 import CompartirImage from './components/Iconos/CompartirImage';
 import ConfigImage from './components/Iconos/ConfigImage'
-import SeparadorImage from './components/Iconos/SeparadorImage';
-import PuntosImage from './components/Iconos/PuntosImage'
 import { useFonts } from 'expo-font';
-import { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import SeccionDisco from './components/Radio/SeccionDisco';
+import LateralIzquierdo from './components/Radio/LateralIzquierdo';
+import LateralDerecho from './components/Radio/LateralDerecho';
+import FooterRadio from './components/Radio/FooterRadio';
 
 const Radio = () => {
     const { theme, toggleTheme } = useTheme();
@@ -25,52 +24,8 @@ const Radio = () => {
         OpenSansBold: require("../assets/fonts/OpenSansBold.ttf")
     })
     const [isPlaying, setIsPlaying] = useState(false)
-    const [altoFooter, setAltoFooter] = useState(80)
-
-    const margen = Math.ceil(width * 10 / height / 2 ) / 10;
-    //ANIMACIONES
-    const rotation = useSharedValue(0);
-
-    const animatedStyle = useAnimatedStyle(() => {
-        return {
-          transform: [{ rotate: `${rotation.value * 360}deg` }],
-        };
-    });
-
-    useEffect(() => {
-        if (isPlaying) {
-            rotation.value = withSpring(1, { damping: 5, stiffness: 100 });
-            console.log(`Reproduciendo ${rotation.value}`)
-        } else {
-            rotation.value = withSpring(0, { damping: 5, stiffness: 100 });
-        }
-    }, [isPlaying]);
-
-    const margenLaterales = () =>{
-        if(margen < 0.2){
-            return 0.2
-        }else if(margen >0.3){
-            return 0.3
-        }else{
-            return margen;
-        }
-    };
-    useEffect(()=>{
-        if(height < 600){
-            setAltoFooter(null)
-            return;
-        }else if( height < 700){
-            setAltoFooter(40)
-            return;
-        }else if( height < 800){
-            setAltoFooter(60)
-            return;
-        }
-    },[height])
-
-    const espCaratula = Math.ceil(((width - (margenLaterales() * 2 * width)) * 0.8))
     
-    const handlePress = () => {
+    const handleTheme = () => {
         toggleTheme();
     };
 
@@ -84,31 +39,21 @@ const Radio = () => {
                 <>
                 <Mitad>
                 <ContainerRow>
-                    <Lateral1 margenes={margen.toFixed(1)}>
-                        <Pressable onPress={handlePress}>
-                            <ButtomTheme></ButtomTheme>
-                        </Pressable>
-                    </Lateral1>
-                    <ViewDisco>
-                        <FondoDisco1 theme={theme}></FondoDisco1>
-                        <FondoDisco2 theme={theme}></FondoDisco2>
-                        <SombraDisco></SombraDisco>
-                        <Disco style={animatedStyle}>
-                            <Image
-                                source={require('../assets/img/Radio/disco.png')}
-                                style={{ width: '100%', height: '100%', borderRadius: 100 }}
-                            />
-                        </Disco>
-                        <Caratula margen={`${espCaratula}px`}>
-                            <Image
-                                source={require('../assets/img/Radio/caratula.jpg')}
-                                style={{ width: '100%', height: '100%' }}
-                            />
-                        </Caratula>
-                    </ViewDisco>
-                    <Lateral2 margenes={margen}>
-                        <Volumen></Volumen>
-                    </Lateral2>
+                    <LateralIzquierdo 
+                        width={width}
+                        height={height}
+                        handleTheme={handleTheme}
+                    />
+                    <SeccionDisco
+                        isPlaying={isPlaying} 
+                        theme={theme}
+                        width={width}
+                        height={height}
+                    />
+                    <LateralDerecho 
+                        width={width}
+                        height={height}
+                    />
                 </ContainerRow>
                 </Mitad>
                 <Mitad style={{ paddingTop: '10px' }}>
@@ -171,19 +116,10 @@ const Radio = () => {
                             <ConfigImage theme={theme}></ConfigImage>
                         </PlayerConfig>
                     </ContainerRow>
-                    {altoFooter && ( 
-                        <RadioFooter altoFooter= {altoFooter}>
-                            <SeparadorImage theme={theme} 
-                                estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '0px'}}
-                                />
-                                <PuntosImage theme={theme}
-                                    estilos= {{ width: '40%', height: '20%', position: 'absolute', left: '30%', bottom: '20%'}}
-                                    />
-                            <SeparadorImage theme={theme} 
-                                estilos= {{ width: '5%', height: '50%', position: 'absolute', left: '95%'}}
-                                />
-                        </RadioFooter>
-                    )}
+                    <FooterRadio 
+                        height={height}
+                        theme={theme}
+                    />
                     
                 </Mitad>
                 </>

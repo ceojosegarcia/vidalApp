@@ -30,15 +30,16 @@ const VolumenBarra = styled(LinearGradient).attrs(props => ({
   bottom: 1px;
 `;
 
-const VolumenBall = styled.View`
-  width: 14px;
-  height: 14px;
-  border-width: 1px;
+const VolumenBall = styled(LinearGradient).attrs(props => ({
+  colors: [props.theme.bgPrimary, props.theme.bgSecundary],
+}))`
+  width: 18px;
+  height: 18px;
+  border-width: 2px;
   border-color: ${props => ((props.theme) ? props.theme.bgContrast : "#fff")};
   border-style: solid;
-  margin-left: -4px;
+  margin-left: -6px;
   border-radius: 100%;
-  background-color: ${props => ((props.theme) ? props.theme.bgPrimary : "#cccccc")};
   margin-top: 6px;
 `;
 

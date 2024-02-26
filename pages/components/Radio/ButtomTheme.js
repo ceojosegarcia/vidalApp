@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import useTheme from '../hooks/useTheme';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing} from 'react-native-reanimated';
 
 const FondoButtom = styled(LinearGradient).attrs(props => ({
   colors: [props.theme.bgPrimary, props.theme.bgSecundary],
@@ -18,20 +19,32 @@ const FondoButtom = styled(LinearGradient).attrs(props => ({
     border-radius: 20px;
 `;
 
-const ButtomBall = styled(LinearGradient).attrs(props => ({
-  colors: [props.theme.bgContrast2, props.theme.bgContrast],
-}))`
+const ButtomBall = styled(Animated.View)`
   width: 14px;
   height: 14px;
   border-radius: 100%;
-  margin-top: ${props => ((props.theme.theme && props.theme.theme === "light") ? "16px" : "4px")};
 `;
 
 const ButtomTheme = () => {
   const { theme } = useTheme();
+  const marginTop = useSharedValue(0)
+
+  const marginStyle = useAnimatedStyle(() => {
+    return {
+      marginTop: withTiming(marginTop.value, {
+        duration: 1000,
+        easing: Easing.inOut(Easing.ease),
+      }),
+    };
+  });
+
+  React.useEffect(()=>{
+    marginTop.value = theme.theme && theme.theme === "light" ? 16 : 4;
+  },[theme])
+
     return (
         <FondoButtom theme={theme}>
-          <ButtomBall  theme={theme}/>  
+          <ButtomBall  theme={theme} style={[{ backgroundColor: theme.bgContrast2 }, marginStyle]} />  
         </FondoButtom>
     );
 };

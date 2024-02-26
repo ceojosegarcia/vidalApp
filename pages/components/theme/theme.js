@@ -3,7 +3,8 @@ export const darkTheme = {
         primary: "#494949",
         secundary: "#2f2f2f",
         contrast: "#cbcee3",
-        contrast2: "#ffffff"
+        contrast2: "#ffffff",
+        contrast3: "#e6e6e6"
     },
     fontColor:{
         normal: "#e6e6e6",
@@ -22,7 +23,8 @@ export const lightTheme = {
         primary: "#dadada",
         secundary: "#cccccc",
         contrast: "#2f2f2f",
-        contrast2: "#494949"
+        contrast2: "#494949",
+        contrast3: "#6d6d6d"
     },
     fontColor:{
         normal: "#494949",
