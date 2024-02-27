@@ -9,20 +9,17 @@ import { useWindowDimensions } from 'react-native';
 import PlayImage from './components/Iconos/PlayImage';
 import CompartirImage from './components/Iconos/CompartirImage';
 import ConfigImage from './components/Iconos/ConfigImage'
-import { useFonts } from 'expo-font';
 import SeccionDisco from './components/Radio/SeccionDisco';
 import LateralIzquierdo from './components/Radio/LateralIzquierdo';
 import LateralDerecho from './components/Radio/LateralDerecho';
 import FooterRadio from './components/Radio/FooterRadio';
+import { useFontLeidas } from './components/hooks/useFontLeidas';
 
 const Radio = () => {
     const { theme, toggleTheme } = useTheme();
     const { width, height } = useWindowDimensions();
-    const [fontsLoaded] = useFonts({
-        RussoOne : require("../assets/fonts/RussoOne.ttf"),
-        OpenSans: require("../assets/fonts/OpenSans.ttf"),
-        OpenSansBold: require("../assets/fonts/OpenSansBold.ttf")
-    })
+    const { russoOne, openSans, openSansBold} = useFontLeidas()
+    
     const [isPlaying, setIsPlaying] = useState(false)
     
     const handleTheme = () => {
@@ -61,14 +58,14 @@ const Radio = () => {
                         <ViewTituloAudio>
                             <MyText 
                                 theme={theme}
-                                font= {fontsLoaded ? "RussoOne" : "sans-serif"}
+                                font= {russoOne}
                                 dorado    
                             >Artista:</MyText>
                         </ViewTituloAudio>
                         <DatoAudio>
                             <MyText 
                                 theme={theme}
-                                font= {fontsLoaded ? "OpenSansBold" : "sans-serif"}   
+                                font= {openSansBold}   
                             >El Gran Combo de Puerto Rico</MyText>
                         </DatoAudio>
                     </ViewDatosAudio>
@@ -76,14 +73,14 @@ const Radio = () => {
                         <ViewTituloAudio>
                             <MyText 
                                 theme={theme}
-                                font= {fontsLoaded ? "RussoOne" : "sans-serif"}
+                                font= {russoOne}
                                 dorado    
                             >Tema:</MyText>
                         </ViewTituloAudio>
                         <DatoAudio>
                             <MyText 
                                 theme={theme}
-                                font= {fontsLoaded ? "OpenSans" : "sans-serif"}   
+                                font= {openSans}   
                                 azul
                             >Timbalero y Trampolin</MyText>
                         </DatoAudio>
@@ -97,11 +94,11 @@ const Radio = () => {
                     <ContainerRow style={{ marginBottom: "20px" }} >
                         <PlayerTime>
                             <MyText theme={theme}
-                                    font= {fontsLoaded ? "OpenSans" : "sans-serif"}
+                                    font= {openSans}
                                     size={"32px"} 
                             >01:20</MyText>
                             <MyText theme={theme}
-                                    font= {fontsLoaded ? "OpenSans" : "sans-serif"}
+                                    font= {openSans}
                                     size={"12px"} azul 
                             >En Linea</MyText>
                         </PlayerTime>
