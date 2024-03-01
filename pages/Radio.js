@@ -1,26 +1,45 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import useTheme from './components/hooks/useTheme';
-import { Image } from 'react-native';
-import { MyText, MyContainer, ContainerRow, 
-         Mitad, ViewDatosAudio, ViewTituloAudio, DatoAudio, 
-         ContainBarras, PlayerTime, PlayerButtom, PlayerConfig, 
-         CoverButtom, PlayingButtom,} from './components/StyledComponents';
+import { MyContainer, ContainerRow, Mitad } from './components/StyledComponents';
 import { useWindowDimensions } from 'react-native';
-import PlayImage from './components/Iconos/PlayImage';
-import CompartirImage from './components/Iconos/CompartirImage';
-import ConfigImage from './components/Iconos/ConfigImage'
 import SeccionDisco from './components/Radio/SeccionDisco';
 import LateralIzquierdo from './components/Radio/LateralIzquierdo';
 import LateralDerecho from './components/Radio/LateralDerecho';
 import FooterRadio from './components/Radio/FooterRadio';
-import { useFontLeidas } from './components/hooks/useFontLeidas';
+import ArtistaRadio from './components/Radio/ArtistaRadio';
+import PlayerRadio from './components/Radio/PlayerRadio';
+import TemaRadio from './components/Radio/TemaRadio';
+import Barras from './components/Radio/Barras';
+import { URL_RADIO } from '../store/global/Constantes';
+import { Audio } from 'expo-av';
 
 const Radio = () => {
     const { theme, toggleTheme } = useTheme();
-    const { width, height } = useWindowDimensions();
-    const { russoOne, openSans, openSansBold} = useFontLeidas()
-    
+    const { width, height } = useWindowDimensions();    
     const [isPlaying, setIsPlaying] = useState(false)
+    const [sound, setSound] = useState();
+
+    useEffect(() => {
+        if (isPlaying) {
+            const playAudio = async () => {
+                const { sound } = await Audio.Sound.createAsync(
+                    { uri: URL_RADIO },
+                    { shouldPlay: true }
+                );
+                setSound(sound);
+            };
+
+            playAudio();
+        } else {
+            // Pausar o detener la reproducción cuando isPlaying es falso
+            sound && sound.unloadAsync();
+        }
+
+        return () => {
+            // Descargar el audio cuando el componente se desmonta
+            sound && sound.unloadAsync();
+        };
+    }, [isPlaying]);
     
     const handleTheme = () => {
         toggleTheme();
@@ -54,65 +73,17 @@ const Radio = () => {
                 </ContainerRow>
                 </Mitad>
                 <Mitad style={{ paddingTop: '10px' }}>
-                    <ViewDatosAudio>
-                        <ViewTituloAudio>
-                            <MyText 
-                                theme={theme}
-                                font= {russoOne}
-                                dorado    
-                            >Artista:</MyText>
-                        </ViewTituloAudio>
-                        <DatoAudio>
-                            <MyText 
-                                theme={theme}
-                                font= {openSansBold}   
-                            >El Gran Combo de Puerto Rico</MyText>
-                        </DatoAudio>
-                    </ViewDatosAudio>
-                    <ViewDatosAudio>
-                        <ViewTituloAudio>
-                            <MyText 
-                                theme={theme}
-                                font= {russoOne}
-                                dorado    
-                            >Tema:</MyText>
-                        </ViewTituloAudio>
-                        <DatoAudio>
-                            <MyText 
-                                theme={theme}
-                                font= {openSans}   
-                                azul
-                            >Timbalero y Trampolin</MyText>
-                        </DatoAudio>
-                    </ViewDatosAudio>
-                    <ContainBarras>
-                        <Image
-                            source={require('../assets/img/Radio/barras.png')}
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    </ContainBarras>
-                    <ContainerRow style={{ marginBottom: "20px" }} >
-                        <PlayerTime>
-                            <MyText theme={theme}
-                                    font= {openSans}
-                                    size={"32px"} 
-                            >01:20</MyText>
-                            <MyText theme={theme}
-                                    font= {openSans}
-                                    size={"12px"} azul 
-                            >En Linea</MyText>
-                        </PlayerTime>
-                        <PlayerButtom>
-                            <PlayImage isPlaying={isPlaying} />
-                            <PlayingButtom onPress={cambiaPlaying}>
-                                 <CoverButtom/>
-                            </PlayingButtom>
-                        </PlayerButtom>
-                        <PlayerConfig>
-                            <CompartirImage theme={theme}></CompartirImage>
-                            <ConfigImage theme={theme}></ConfigImage>
-                        </PlayerConfig>
-                    </ContainerRow>
+                    <ArtistaRadio theme={theme} />
+                    <TemaRadio theme={theme} />
+                   
+                    <Barras theme={theme}/>
+                    
+                    <PlayerRadio 
+                        theme={theme}
+                        isPlaying={isPlaying}
+                        cambiaPlaying={cambiaPlaying}
+                    />
+
                     <FooterRadio 
                         height={height}
                         theme={theme}

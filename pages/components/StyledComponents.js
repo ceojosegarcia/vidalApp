@@ -126,10 +126,8 @@ export const ContainBarras = styled.View`
     background-color: transparent;
     width: 100%;
     height: 50px;
-    border-bottom-width: 1px;
-    border-bottom-color: #7a7a7a;
-    border-bottom-style: solid;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    margin-top: 10px;
 `;
 export const PlayerTime = styled.View`
     background-color: transparent;
