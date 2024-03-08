@@ -5,6 +5,8 @@ import Animated from 'react-native-reanimated';
 
 const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
+const basePixel = vw / 100;
+
 
 export const MyText = styled.Text`
     color: ${props => {
@@ -50,8 +52,8 @@ export const FondoDisco1 = styled.View`
     background: ${props => props.theme.bgContrast};
     height: 100%; 
     width: 100%;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: ${props => props.widthFondoDisco ? `${props.widthFondoDisco}px` : '100px'};
+    border-bottom-right-radius: ${props => props.widthFondoDisco ? `${props.widthFondoDisco}px` : '100px'};
 `;
 export const FondoDisco2 = styled(LinearGradient).attrs(props => ({
     colors: [props.theme.bgContrast, props.theme.bgContrast3],
@@ -60,8 +62,8 @@ export const FondoDisco2 = styled(LinearGradient).attrs(props => ({
     width: 100%;
     aspect-ratio: 1;
     bottom: 0;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: ${props => props.widthFondoDisco ? `${props.widthFondoDisco}px` : '100px'};
+    border-bottom-right-radius: ${props => props.widthFondoDisco ? `${props.widthFondoDisco}px` : '100px'};
 `;
 
 export const Caratula = styled.View`
@@ -86,8 +88,8 @@ export const Disco = styled(Animated.View)`
   width: 80%;
   aspect-ratio: 1;
   bottom: 10%;
-  border-bottom-left-radius: 100%;
-  border-bottom-right-radius: 100%;
+  border-bottom-left-radius: ${props => props.widthSombraDisco ? `${props.widthSombraDisco}px` : '100px'};
+  border-bottom-right-radius: ${props => props.widthSombraDisco ? `${props.widthSombraDisco}px` : '100px'};
   z-index: 20;
 `;
 export const SombraDisco = styled.View`
@@ -97,10 +99,10 @@ export const SombraDisco = styled.View`
     aspect-ratio: 1;
     bottom: 8%;
     left:9%;
-    border-top-left-radius: 100%;
-    border-top-right-radius: 100%;
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
+    border-top-left-radius:  ${props => props.widthSombraDisco ? `${props.widthSombraDisco}px` : '100px'};
+    border-top-right-radius:  ${props => props.widthSombraDisco ? `${props.widthSombraDisco}px` : '100px'};
+    border-bottom-left-radius:  ${props => props.widthSombraDisco ? `${props.widthSombraDisco}px` : '100px'};
+    border-bottom-right-radius: ${props => props.widthSombraDisco ? `${props.widthSombraDisco}px` : '100px'};
     z-index: 10;
 `;
 export const ViewDatosAudio = styled.View`
@@ -142,7 +144,7 @@ export const PlayerButtom = styled(LinearGradient).attrs(props => ({
   }))`
     width: 100px; 
     height: 100px;
-    border-radius: 100%;
+    border-radius: 50px;
     border-width: 3px;
     border-color: #ffffff;
     border-style: solid;
@@ -155,7 +157,7 @@ export const CoverButtom = styled(LinearGradient).attrs(props => ({
   }))`
     width: 100px; 
     height: 100px;
-    border-radius: 100%;
+    border-radius: 50px;
     left: 0;
     top: 0;
     position: absolute;

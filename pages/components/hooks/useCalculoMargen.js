@@ -1,8 +1,18 @@
+import { useWindowDimensions, Platform } from "react-native";
 
-const useCalculoMargen = ({width,height}) => {
 
-    const margen = Math.ceil(width * 10 / height / 2 ) / 10;
-    
+const useCalculoMargen = () => {
+    const { width, height } = useWindowDimensions(); 
+
+    const calculoMargen = () =>{
+        if(Platform.OS === "web"){
+            return Math.ceil(width * 10 / height / 2 ) / 10;
+        }else{
+            return Math.ceil(width * 10 / height / 2.5 ) / 10;
+        }
+    }
+
+    const margen = calculoMargen();
 
     const margenLaterales = () =>{
         if(margen < 0.2){

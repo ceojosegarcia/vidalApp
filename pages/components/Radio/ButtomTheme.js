@@ -22,7 +22,7 @@ const FondoButtom = styled(LinearGradient).attrs(props => ({
 const ButtomBall = styled(Animated.View)`
   width: 14px;
   height: 14px;
-  border-radius: 100%;
+  border-radius: 7px;
 `;
 
 const ButtomTheme = () => {

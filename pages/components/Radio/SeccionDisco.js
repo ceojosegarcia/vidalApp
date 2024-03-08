@@ -1,13 +1,21 @@
 import React, {useEffect} from 'react';
 import { ViewDisco, FondoDisco1, FondoDisco2, SombraDisco, Disco, Caratula } from '../StyledComponents';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 import { useSharedValue, useAnimatedStyle, Easing, withRepeat, withTiming, withSpring} from 'react-native-reanimated';
 import useCalculoMargen from '../hooks/useCalculoMargen';
 
-const SeccionDisco = ({isPlaying, theme, width, height}) => {
-
-    const margen = useCalculoMargen(width,height)
-    const espCaratula = Math.ceil(((width - (margen * 2 * width)) * 0.8))
+const SeccionDisco = ({isPlaying, theme, width}) => {
+    const margen = useCalculoMargen();
+    const widthFondoDisco = Math.round((1 - (margen * 2)) * width);
+    
+    const calculoCaratula = () =>{
+        if(Platform.OS === "web"){
+            return Math.ceil(((width - (margen * 2 * width)) * 0.8))
+        }else{
+            return Math.ceil(((width - (margen * 2.6 * width)) * 0.8))
+        }
+    }
+    const espCaratula = calculoCaratula();
     
     //ANIMACIONES
     const rotation = useSharedValue(0);
@@ -30,10 +38,16 @@ const SeccionDisco = ({isPlaying, theme, width, height}) => {
 
     return (
         <ViewDisco>
-            <FondoDisco1 theme={theme}></FondoDisco1>
-            <FondoDisco2 theme={theme}></FondoDisco2>
-            <SombraDisco></SombraDisco>
-            <Disco style={animatedStyle}>
+            <FondoDisco1 
+                theme={theme}
+                widthFondoDisco= {widthFondoDisco}
+            />
+            <FondoDisco2 
+                theme={theme}
+                widthFondoDisco= {widthFondoDisco}
+            />
+            <SombraDisco widthSombraDisco= {Math.round(widthFondoDisco * .84)} />
+            <Disco style={animatedStyle} widthDisco= {Math.round(widthFondoDisco * .8)}>
                 <Image
                     source={require('../../../assets/img/Radio/disco.png')}
                     style={{ width: '100%', height: '100%', borderRadius: 100 }}

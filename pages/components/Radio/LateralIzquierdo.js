@@ -4,8 +4,8 @@ import { Pressable } from 'react-native';
 import ButtomTheme from './ButtomTheme';
 import useCalculoMargen from '../hooks/useCalculoMargen';
 
-const LateralIzquierdo = ({width, height,handleTheme}) => {
-    const margen = useCalculoMargen(width,height)
+const LateralIzquierdo = ({handleTheme}) => {
+    const margen = useCalculoMargen()
     return (
         <Lateral1 margenes={margen.toFixed(1)}>
             <Pressable onPress={handleTheme}>

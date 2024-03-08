@@ -39,7 +39,7 @@ const VolumenBall = styled(LinearGradient).attrs(props => ({
   border-color: ${props => ((props.theme) ? props.theme.bgContrast : "#fff")};
   border-style: solid;
   margin-left: -6px;
-  border-radius: 100%;
+  border-radius: 9px;
   margin-top: 6px;
 `;
 
